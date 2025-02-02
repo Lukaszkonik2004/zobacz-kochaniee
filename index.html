@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dla Mojej Ukochanej</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: linear-gradient(to bottom, #ffcccc, #ff99cc);
+            background-attachment: fixed;
+            background-size: cover;
+            margin: 0;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            overflow-y: scroll;  /* Umożliwia przewijanie w pionie */
+            position: relative;
+        }
+        video {
+    width: 80%; /* Zmieniamy szerokość na 80% kontenera */
+    height: auto; /* Zachowanie proporcji */
+    max-width: 800px; /* Maksymalna szerokość */
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+        .heart-background {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60vw;
+            height: 60vw;
+            max-width: 500px;
+            max-height: 500px;
+            background-color: rgba(255, 0, 0, 0.2);
+            clip-path: path("M250 50 C350 -50 500 100 250 300 C0 100 150 -50 250 50 Z");
+            z-index: -1;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        h1 {
+            color: red;
+            font-size: 3em;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+        }
+        .gallery {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            max-width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .gallery img {
+            width: 200px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+        .gallery img:hover {
+            transform: scale(1.1);
+        }
+        @keyframes floating-hearts {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
+        .heart {
+            position: absolute;
+            color: red;
+            font-size: 2em;
+            animation: floating-hearts 4s linear infinite;
+        }
+        .message-box {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 30px auto;
+            width: 50%;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .message {
+            font-size: 1.5em;
+            color: darkred;
+        }
+        .hidden-info {
+            display: none;
+            margin-top: 20px;
+            background: rgba(255, 182, 193, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .music-control {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="heart-background"></div>
+    <div class="music-control">
+        <button onclick="toggleMusic()">🎵 Włącz/wyłącz muzykę</button>
+        <audio id="backgroundMusic" loop>
+            <source src="music.mp3" type="audio/mpeg">
+            Twoja przeglądarka nie obsługuje odtwarzacza audio.
+        </audio>
+    </div>
+    <div class="container">
+        <h1>Kocham Cię!</h1>
+        <div class="message-box">
+            <p class="message">„Miłość nie polega na tym, aby wzajemnie sobie się przyglądać, ale by patrzeć razem w tym samym kierunku.” ❤️</p>
+        </div>
+        <div class="gallery">
+            <img src="zdj1.jpg" alt="Nasze wspólne zdjęcie">
+            <img src="zdj2.jpg" alt="Kolejne piękne wspomnienie">
+            <img src="zdj3.jpg" alt="Słodki moment razem">
+            <img src="zdj4.jpg" alt="Zawsze razem">
+            <img src="zdj5.jpg" alt="Nasze uśmiechy">
+        </div>
+        <button onclick="showHiddenInfo()">Ukryte informacje</button>
+        <div class="hidden-info" id="hiddenInfo">
+            <p>Tutaj są ukryte informacje! 💖</p>
+            <video id="hiddenVideo" controls>
+                <source src="film.mp4" type="video/mp4">
+                Twoja przeglądarka nie obsługuje tego formatu wideo.
+            </video>
+        </div>
+    </div>
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => {
+                heart.remove();
+            }, 4000);
+        }
+        setInterval(createHeart, 300);
+
+        function showHiddenInfo() {
+            const code = prompt("Podaj kod dostępu: (8 cyfr)");
+            if (code === "20082023") {
+                document.getElementById("hiddenInfo").style.display = "block";
+            } else {
+                alert("Niepoprawny kod! Spróbuj ponownie.");
+            }
+        }
+        
+        function toggleMusic() {
+            const music = document.getElementById("backgroundMusic");
+            if (music.paused) {
+                music.play();
+            } else {
+                music.pause();
+            }
+        }
+    </script>
+</body>
+</html>
